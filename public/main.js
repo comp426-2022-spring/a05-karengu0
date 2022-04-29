@@ -76,3 +76,52 @@ async function sendFlips({url, formData}) {
 }
 
 // Guess a flip by clicking either heads or tails button
+function homeNav() {
+    document.getElementById("homenav").className = "active";
+    document.getElementById("home").className = "active";
+    document.getElementById("singlenav").className = "";
+    document.getElementById("single").className = "inactive";
+    document.getElementById("multinav").className = "";
+    document.getElementById("multi").className = "inactive";
+    document.getElementById("guessnav").className = "";
+    document.getElementById("guesscoin").className = "inactive";
+  }
+  function singleNav() {
+    document.getElementById("homenav").className = "";
+    document.getElementById("home").className = "inactive";
+    document.getElementById("singlenav").className = "active";
+    document.getElementById("single").className = "active";
+    document.getElementById("multinav").className = "";
+    document.getElementById("multi").className = "inactive";
+    document.getElementById("guessnav").className = "";
+    document.getElementById("guesscoin").className = "inactive";
+  }
+  function multiNav() {
+    document.getElementById("homenav").className = "";
+    document.getElementById("home").className = "inactive";
+    document.getElementById("singlenav").className = "";
+    document.getElementById("single").className = "inactive";
+    document.getElementById("multinav").className = "active";
+    document.getElementById("multi").className = "active";
+    document.getElementById("guessnav").className = "";
+    document.getElementById("guesscoin").className = "inactive";
+  }
+  function guessNav() {
+    document.getElementById("homenav").className = "";
+    document.getElementById("home").className = "inactive";
+    document.getElementById("singlenav").className = "";
+    document.getElementById("single").className = "inactive";
+    document.getElementById("multinav").className = "";
+    document.getElementById("multi").className = "inactive";
+    document.getElementById("guessnav").className = "active";
+    document.getElementById("guesscoin").className = "active";
+  } 
+
+  function coinList(array) {
+      let text = "";
+      let arrayLength = array.arrayLength
+      for (let i = 0; i < arrayLength; i++) {
+          text+= '<li><img src="assets/img/'+array[i]+'.png" class="bigcoin"></li>';
+      }
+      return text
+  }
