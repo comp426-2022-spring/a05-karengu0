@@ -59,4 +59,20 @@ async function flipCall(event) {
 }
 select.addEventListener("submit", flipCall)
 
+async function sendFlips({url, formData}) {
+    const plain = Object.fromEntries(formData.entries());
+    const formJson = JSON.stringify(plain);
+    console.log(formJson);
+    const req = {
+        method: "POST",
+        headers: {
+            "Content-Type": "aplication/json",
+            Accept: "application/json"
+        },
+        body: formJson
+    };
+    const res = await fetch(url,req);
+    return res.json()
+}
+
 // Guess a flip by clicking either heads or tails button
