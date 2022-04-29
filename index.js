@@ -18,6 +18,23 @@ if (args.log == 'false') {
     const accessLog = fs.createWriteStream( logdir+'access.log', { flags: 'a' })
     app.use(morgan('combined', {stream: accessLog}))
 }
+app.use((req, res, next) => {
+    let logdata = {
+        remoteaddr: req.ip,
+        remoteuser: req.user,
+        time: Date.now(),
+        method: req.method,
+        url: req.url,
+        protocol: req.protocol,
+        httpversion: req.httpVersion,
+        status: res.statusCode,
+        referrer: req.headers['referer'],
+        useragent: req.headers['user-agent']
+    };
+    const stmt = logdb.prepare('INSERT INTO accesslog (remoteaddr, remoteuser, time, method, url, protocol, httpversion, status, referrer, useragent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+    const info = stmt.run(logdata.remoteaddr, logdata.remoteuser, logdata.time, logdata.method, logdata.url, logdata.protocol, logdata.httpversion, logdata.status, logdata.referrer, logdata.useragent)
+    next();
+})
 const help = (`
 server.js [options]
 --port, -p	Set the port number for the server to listen on. Must be an integer
@@ -33,4 +50,50 @@ server.js [options]
 if (args.help || args.h) {
     console.log(help)
     process.exit(0)
+}
+
+//Flip one coin
+function coinFlip() {
+    return (Math.floor(Math.random() * 2) == 0) ? 'heads' : 'tails';
+  }  
+
+//Flip many coins
+function coinFlips(flips) {
+    let resultsArray = [];
+    for (var i = 0; i < flips; i++) {
+      let flip = coinFlip();
+      resultsArray[i] = flip;
+    }
+    return resultsArray;
+}
+
+//Count coin flips
+function countFlips(array) {
+    let heads = 0;
+    let tails = 0;
+    for (var i = 0; i < array.length; i++) {
+      if (array[i]=='heads') {
+        heads++;
+      } else if (array[i] == 'tails') {
+        tails++;
+      }
+    }
+    if (heads == 0) {
+      return {"tails": tails};
+    } else if (tails == 0) {
+      return {"heads": heads};
+    }
+    return {"heads": heads, "tails": tails};
+}
+
+//Call a coin flip
+function flipACoin(call) {
+    let flip = coinFlip();
+    let result = "";
+    if (flip = call) {
+      result = "win";
+    } else if (flip != call) {
+      result = "lose";
+    }
+    return {"call": call, "flip": flip, "result": result};
 }
