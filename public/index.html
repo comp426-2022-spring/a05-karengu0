@@ -38,13 +38,28 @@
     </div>    
     <div id="single" class="hidden">
       <h1>Flip a coin</h1>
-		  <button id="coin">Flip it!</button>
+		  <button id="coin">Flip!</button>
 		  <h2>Result</h2>
 		  <p><span id="result"></span></p>
 		  <img src="assets/img/coin.png" id="quarter" class="bigcoin">  
     </div>
     <div id="multi" class="hidden">
-      
+      <h1>Flip many coins</h1>
+      <form id="coins">
+				<label for="number">
+					<strong>How many coins would you like to flip?</strong>
+				</label>
+				<input type="number" name="number" id="number">
+				<input type="submit" value="Flip 'em!">
+			</form>
+			<h2>Results</h2>
+			<p id="heads"></p>
+			<p id="tails"></p>
+			<ul id="coinlist">
+			  <li>
+			    <img src="assets/img/coin.png" class="bigcoin"> 
+        </li>
+      </ul>
     </div>
     <div id="guess" class="hidden">
       
